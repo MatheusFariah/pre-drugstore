@@ -13,7 +13,7 @@ import {
   ListItemIcon,
   Badge,
 } from "@mui/material";
-import { User, Info, HelpCircle, Phone, LogIn, X } from "lucide-react";
+import { User, Info, HelpCircle, Phone, X } from "lucide-react";
 import LoginButton from "../login-button";
 
 export default function Topbar() {

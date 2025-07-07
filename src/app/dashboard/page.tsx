@@ -1,7 +1,6 @@
 import Sidebar from "@/app/components/common/navigation/sidebar";
 import Topbar from "@/app/components/common/navigation/topbar";
-import Image from "next/image";
-import styles from "./dashboard.module.css";
+
 
 export default function DashboardPage() {
   return (
