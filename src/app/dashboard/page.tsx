@@ -8,7 +8,7 @@ export default function DashboardPage() {
       <Sidebar />
       <div className="flex flex-col flex-1 max-w-screen text-black relative">
         <Topbar />
-        <main className="bg-gray-50 p-6 min-h-screen relative overflow-hidden">
+        <main className="bg-gray-51 p-6 min-h-screen relative overflow-hidden">
           
           {/* Conteúdo do dashboard */}
           <h2 className="text-xl font-semibold mb-4 relative z-10">
