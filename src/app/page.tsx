@@ -1,17 +1,31 @@
+"use client";
+
 import Topbar from "@/app/components/common/navigation/topbar";
 import Image from "next/image";
-import Link from "next/link";
+import Footer from "@/app/components/common/navigation/footer";
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { BarChart, Bell, UserCheck } from "lucide-react";
-import twoImage from "@/public/assets/two.png";
 
 export default function Home() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#ffffff] text-gray-800">
+    <div className="min-h-screen flex flex-col bg-[#ffffff] text-gray-800 overflow-x-hidden">
       <Topbar />
 
       {/* HERO + CARDS */}
-      <section className="relative flex flex-col items-center justify-center px-4 md:px-16 pt-8 pb-20 bg-[#f5fcf8]">
+      <section
+        className={`relative flex flex-col items-center justify-center px-4 md:px-16 pt-8 pb-20 bg-[#f5fcf8]
+         transition-all duration-700 ease-out
+         ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+        `}
+      >
         <div className="flex flex-col items-center mb-6 mt-4 gap-3 z-10">
           <Image
             src="/assets/logooficial.png"
@@ -33,20 +47,8 @@ export default function Home() {
               lineHeight: 1.1,
             }}
           >
-            WARN
-            <Image
-              src="/assets/two.png"
-              alt="Stylish 2"
-              width={60}
-              height={60}
-              style={{
-                margin: "0 8px",
-                transform: "rotate(-5deg)",
-              }}
-            />
-            SAVE
+            WARN2SAVE
           </h1>
-
           <p className="text-gray-700 text-lg md:text-2xl leading-relaxed text-center mt-3 max-w-2xl font-light">
             Smarter, faster, and more effective health monitoring for your
             community.
@@ -54,7 +56,12 @@ export default function Home() {
         </div>
 
         {/* CARDS */}
-        <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 absolute -bottom-24">
+        <div
+          className={`w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 relative mt-8
+          transition-all duration-700 ease-out
+          ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+        `}
+        >
           {[
             {
               icon: <BarChart size={40} color="#008261" />,
@@ -87,10 +94,15 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS + CTA */}
-      <section className="w-full pt-28 pb-12 bg-[#f7fbfa]">
+      <section
+        className={`w-full pt-28 pb-12 bg-[#f7fbfa] min-h-[150vh]
+         transition-all duration-700 ease-out
+         ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+        `}
+      >
         <div className="max-w-4xl mx-auto px-4">
           <h3 className="text-emerald-700 text-2xl font-bold text-center mb-8">
-            What people say about Time2Health
+            What people say about Heal2s
           </h3>
           <div className="flex flex-col md:flex-row gap-6 justify-center items-stretch">
             {[
@@ -147,24 +159,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-white border-t border-emerald-100 py-4 text-center text-sm text-gray-600 flex flex-col gap-2">
-        <p>© 2025 ApolloFarm. Todos os direitos reservados.</p>
-        <div className="flex justify-center gap-4">
-          <Link
-            href="/privacy"
-            className="hover:underline hover:text-emerald-600"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/terms"
-            className="hover:underline hover:text-emerald-600"
-          >
-            Terms of Use
-          </Link>
-        </div>
-      </footer>
+      <div id="Footer">
+        <Footer />
+      </div>
     </div>
   );
 }

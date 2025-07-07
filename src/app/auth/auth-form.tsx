@@ -4,24 +4,23 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import supabase from "@/services/supabase";
 import styles from "./auth.module.css";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 
 export default function AuthForm() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState(""); 
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleLogin(e: React.FormEvent) {
-    console.log("supabase obj", supabase);
-    console.log("supabase.auth obj", supabase.auth);
-    console.log("supabase URL", process.env.NEXT_PUBLIC_SUPABASE_URL);
-
+  async function handleSignUp(e: React.FormEvent) {
     e.preventDefault();
     setErrorMsg("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: { data: { name } },
     });
 
     if (error) {
@@ -32,24 +31,39 @@ export default function AuthForm() {
   }
 
   return (
-    <form onSubmit={handleLogin} className={styles.form}>
-      <h2>Login no ApolloFarm</h2>
-      <input
-        type="email"
-        placeholder="Seu email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Sua senha"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+    <form onSubmit={handleSignUp} className={styles.form}>
+      <div className={styles.inputIcon}>
+        <FaUser className={styles.icon} />
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </div>
+      <div className={styles.inputIcon}>
+        <FaEnvelope className={styles.icon} />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <div className={styles.inputIcon}>
+        <FaLock className={styles.icon} />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
       {errorMsg && <p className={styles.error}>{errorMsg}</p>}
-      <button type="submit">Entrar</button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 }

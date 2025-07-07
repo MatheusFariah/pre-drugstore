@@ -1,50 +1,71 @@
+"use client";
+
 import Link from "next/link";
+import { MenuItem, Box } from "@mui/material";
 import { LogIn } from "lucide-react";
 
-export default function LoginButton() {
+export default function LoginButton({ onClick }: { onClick?: () => void }) {
   return (
-    <Link href="/auth/login" tabIndex={-1}>
-      <button
-        type="button"
-        className="
-          relative flex items-center justify-center
-          w-[92px] h-[38px]
-          border border-emerald-500 bg-white
-          text-emerald-700 font-bold
-          rounded-full
-          transition-all duration-300
-          hover:bg-emerald-50
-          focus:outline-none focus:ring-2 focus:ring-emerald-200
-          text-sm
-          group
-          overflow-hidden
-          select-none
-        "
-        style={{ fontFamily: "Montserrat, sans-serif" }}
+    <Link href="/auth/login" style={{ textDecoration: "none" }}>
+      <MenuItem
+        onClick={onClick}
+        sx={{
+          border: "1px solid #10b981",
+          color: "#10b981",
+          fontWeight: 600,
+          borderRadius: 2,
+          px: 3,
+          py: 1.5,
+          position: "relative",
+          overflow: "hidden",
+          transition: "all 0.4s ease",
+          justifyContent: "center",
+          alignItems: "center",
+          "&:hover": {
+            background: "#10b981",
+            color: "#ffffff",
+            border: "1px solid transparent",
+          },
+        }}
       >
-        {/* Texto centralizado, mas "afasta" quando ícone aparece */}
+        {/* texto */}
         <span
-          className="
-            transition-all duration-300
-            group-hover:translate-x-[-12px] group-focus:translate-x-[-12px]
-          "
+          className="login-text"
+          style={{
+            transition: "opacity 0.4s ease",
+            whiteSpace: "nowrap",
+            zIndex: 1,
+          }}
         >
-          Log In
+          Log in
         </span>
-        {/* Ícone ABSOLUTO, aparece só no hover/focus, sem aumentar largura */}
-        <span
-          className="
-            absolute right-4
-            opacity-0
-            group-hover:opacity-100 group-focus:opacity-100
-            transition-all duration-300
-            text-emerald-700
-            pointer-events-none
-          "
+
+        {/* ícone */}
+        <Box
+          className="login-icon"
+          sx={{
+            position: "absolute",
+            left: "calc(45% - 40px)",
+            transition: "all 0.4s ease",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <LogIn size={16} />
-        </span>
-      </button>
+          <LogIn size={18} />
+        </Box>
+
+        {/* animação */}
+        <style jsx global>{`
+          .MuiMenuItem-root:hover .login-text {
+            opacity: 0;
+          }
+          .MuiMenuItem-root:hover .login-icon {
+            left: 50% !important;
+            transform: translateX(-50%) scale(1.2);
+          }
+        `}</style>
+      </MenuItem>
     </Link>
   );
 }

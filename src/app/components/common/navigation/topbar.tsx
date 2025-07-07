@@ -14,6 +14,7 @@ import {
   Badge,
 } from "@mui/material";
 import { User, Info, HelpCircle, Phone, LogIn, X } from "lucide-react";
+import LoginButton from "../login-button";
 
 export default function Topbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -93,20 +94,20 @@ export default function Topbar() {
           }}
         >
           {/* HEADER */}
-         {user.logged && (
-  <Box px={2} py={1}>
-    <Typography variant="subtitle1" fontWeight={600}>
-      {user.name}
-    </Typography>
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      sx={{ wordBreak: "break-all" }}
-    >
-      {user.email}
-    </Typography>
-  </Box>
-)}
+          {user.logged && (
+            <Box px={2} py={1}>
+              <Typography variant="subtitle1" fontWeight={600}>
+                {user.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ wordBreak: "break-all" }}
+              >
+                {user.email}
+              </Typography>
+            </Box>
+          )}
 
           <Divider sx={{ my: 1 }} />
 
@@ -145,64 +146,8 @@ export default function Topbar() {
           </MenuItem>
 
           <Divider sx={{ my: 1 }} />
-          <MenuItem
-            onClick={handleClose}
-            sx={{
-              border: "1px solid #10b981",
-              color: "#10b981",
-              fontWeight: 600,
-              borderRadius: 2,
-              px: 3,
-              py: 1.5,
-              position: "relative",
-              overflow: "hidden",
-              transition: "all 0.4s ease",
-              justifyContent: "center",
-              alignItems: "center",
-              "&:hover": {
-                background: "#10b981",
-                color: "#ffffff",
-                border: "1px solid transparent",
-              },
-            }}
-          >
-            {/* container do texto */}
-            <span
-              className="login-text"
-              style={{
-                transition: "opacity 0.4s ease",
-                whiteSpace: "nowrap",
-                zIndex: 1,
-              }}
-            >
-              Log in
-            </span>
 
-            {/* ícone posicionado */}
-            <Box
-              className="login-icon"
-              sx={{
-                position: "absolute",
-                left: "calc(45% - 40px)", // 40px para alinhar no início
-                transition: "all 0.4s ease",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <LogIn size={18} />
-            </Box>
-
-            <style jsx global>{`
-              .MuiMenuItem-root:hover .login-text {
-                opacity: 0;
-              }
-              .MuiMenuItem-root:hover .login-icon {
-                left: 50% !important;
-                transform: translateX(-50%) scale(1.2);
-              }
-            `}</style>
-          </MenuItem>
+          <LoginButton onClick={handleClose} />
         </Menu>
       </div>
     </header>
